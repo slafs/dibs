@@ -19,7 +19,7 @@ class TestDibs(unittest.TestCase):
         pass
 
     def test_something(self):
-        pass
+        assert True
 
     def tearDown(self):
         pass
