@@ -1,2 +1,7 @@
 -r requirements.txt
 tox
+pytest
+pytest-django
+pytest-cov
+python-coveralls
+flake8

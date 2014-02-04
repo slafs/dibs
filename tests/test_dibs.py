@@ -8,21 +8,20 @@ test_dibs
 Tests for `dibs` module.
 """
 
-import unittest
+from dibs.models import Item
+from django.test import TestCase
+# from django.conf import settings
 
-from dibs import dibs
 
-
-class TestDibs(unittest.TestCase):
+class TestDibs(TestCase):
 
     def setUp(self):
         pass
 
     def test_something(self):
-        assert True
+        item = Item(name="test item")
+        item.save()
+        self.assertTrue(item.pk is not None)
 
     def tearDown(self):
         pass
-
-if __name__ == '__main__':
-    unittest.main()

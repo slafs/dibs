@@ -17,6 +17,7 @@ clean-build:
 	rm -fr build/
 	rm -fr dist/
 	rm -fr *.egg-info
+	rm -fr *.egg
 
 clean-pyc:
 	find . -name '*.pyc' -exec rm -f {} +
@@ -24,7 +25,7 @@ clean-pyc:
 	find . -name '*~' -exec rm -f {} +
 
 lint:
-	flake8 dibs tests
+	flake8 src/dibs tests
 
 test:
 	python setup.py test
@@ -33,10 +34,7 @@ test-all:
 	tox
 
 coverage:
-	coverage run --source dibs setup.py test
-	coverage report -m
-	coverage html
-	open htmlcov/index.html
+	python setup.py coverage
 
 docs:
 	rm -f docs/dibs.rst
@@ -47,7 +45,7 @@ docs:
 	open docs/_build/html/index.html
 
 release: clean
-	python setup.py sdist upload
+	python setup.py sdist bdist_wheel upload
 
 sdist: clean
 	python setup.py sdist
