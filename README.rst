@@ -11,6 +11,9 @@ Dibs
 .. image:: https://pypip.in/d/dibs/badge.png
         :target: https://crate.io/packages/dibs?version=latest
 
+.. image:: https://coveralls.io/repos/slafs/dibs/badge.png
+       :target: https://coveralls.io/r/slafs/dibs
+
 
 make "dibs" on stuff
 
