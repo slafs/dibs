@@ -1,7 +1,6 @@
 language: python
-#python: 2.7
 env:
 install:
   - pip install tox
 script:
-  - tox
+  - tox -e py26,py27,py32,lint,coverage_travis
