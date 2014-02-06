@@ -1,4 +1,5 @@
 #https://www.djangoproject.com/download/1.7a1/tarball#egg=Django
 Django
 logan
-
+django-model-utils
+django-mptt

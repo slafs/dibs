@@ -24,7 +24,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -59,31 +59,26 @@ WSGI_APPLICATION = 'dibs.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'NAME': ':memory:',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'TEST_NAME': ':memory:',
     }
 }
 
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
 
-#USE_I18N = True
-USE_I18N = False
+# USE_I18N = True
 
-#USE_L10N = True
-USE_L10N = False
+# USE_L10N = True
 
-#USE_TZ = True
-USE_TZ = False
+# USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
-STATIC_URL = '/static/'
-
-TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+# STATIC_URL = '/static/'
