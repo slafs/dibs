@@ -41,9 +41,9 @@ coverage:
 docs:
 	rm -f docs/dibs.rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ dibs
+	sphinx-apidoc -o docs/ src/dibs
 	$(MAKE) -C docs clean
-	$(MAKE) -C docs html
+	DJANGO_SETTINGS_MODULE=dibs.conf.settings $(MAKE) -C docs html
 	open docs/_build/html/index.html
 
 release: clean
