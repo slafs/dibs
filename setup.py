@@ -49,8 +49,11 @@ class PyTest(TestCommand):
         sys.exit(errno)
 
 class PyTestCoverage(PyTest):
-
     other_options = ('--cov', 'dibs', '--cov-report', 'term-missing')
+
+
+class PyTestCoverageHTML(PyTest):
+    other_options = ('--cov', 'dibs', '--cov-report', 'html')
 
 
 setup(
@@ -69,6 +72,7 @@ setup(
     cmdclass={
         'test': PyTest,
         'coverage': PyTestCoverage,
+        'coverage_html': PyTestCoverageHTML,
     },
     license="MIT",
     zip_safe=False,

@@ -17,15 +17,17 @@ clean-build:
 	rm -fr build/
 	rm -fr dist/
 	rm -fr *.egg-info
+	find src -name '*.egg-info' -type d -exec rm -rf {} +
 	rm -fr *.egg
 
 clean-pyc:
-	find . -name '*.pyc' -exec rm -f {} +
-	find . -name '*.pyo' -exec rm -f {} +
-	find . -name '*~' -exec rm -f {} +
+	find . -name '*.pyc' -type f -exec rm -f {} +
+	find . -name '*.pyo' -type f -exec rm -f {} +
+	find . -name '*~' -type f -exec rm -f {} +
+	find . -name '__pycache__' -type d -exec rm -rf {} +
 
 lint:
-	flake8 src/dibs tests
+	tox -e lint
 
 test:
 	python setup.py test
@@ -34,7 +36,7 @@ test-all:
 	tox
 
 coverage:
-	python setup.py coverage
+	python setup.py coverage_html
 
 docs:
 	rm -f docs/dibs.rst
