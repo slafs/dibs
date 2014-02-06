@@ -23,4 +23,5 @@ make "dibs" on stuff
 Features
 --------
 
-* TODO
+* There is nothing to see here (yet!)
+
