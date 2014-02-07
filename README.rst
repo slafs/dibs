@@ -14,6 +14,9 @@ Dibs
 .. image:: https://coveralls.io/repos/slafs/dibs/badge.png
        :target: https://coveralls.io/r/slafs/dibs
 
+.. image:: https://d2weczhvl823v0.cloudfront.net/slafs/dibs/trend.png
+       :target: https://bitdeli.com/free
+
 
 make "dibs" on stuff
 
