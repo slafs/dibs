@@ -20,6 +20,14 @@ dibs.admin module
     :undoc-members:
     :show-inheritance:
 
+dibs.api module
+---------------
+
+.. automodule:: dibs.api
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 dibs.models module
 ------------------
 

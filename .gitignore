@@ -38,3 +38,6 @@ nosetests.xml
 
 # docs
 docs/_build/
+
+# sqlite3
+src/dibs/db.sqlite3

@@ -1,3 +1,4 @@
-# from django.contrib import admin
+from django.contrib import admin
+from dibs.models import Item
 
-# Register your models here.
+admin.site.register(Item)

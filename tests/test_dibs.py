@@ -9,13 +9,13 @@ Tests for `dibs` module.
 """
 
 from dibs.models import Item
-from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Permission
 import pytest
-from django.db.models.loading import get_model
 
 pytestmark = pytest.mark.django_db
 
-UserModel = get_model(*settings.AUTH_USER_MODEL.rsplit('.', 1))
+UserModel = get_user_model()
 
 
 def test_simple_save():
@@ -48,3 +48,67 @@ def test_simple_tree():
     Item.objects.unlock(user, item.pk)
     item = Item.objects.get(name="child item 1")
     assert item.locked_by is None
+
+
+def test_simple_lock_block():
+    item = Item.objects.create(name="test item", can_be_locked=False)
+    user = UserModel.objects.create(username="testuser")
+
+    assert item.lockable is False
+    count = Item.objects.lock(user, pk=item.pk)
+    assert count == 0
+
+
+def test_unlock_foreign_item():
+    item = Item.objects.create(name="test item")
+    user1 = UserModel.objects.create(username="firstuser")
+    user2 = UserModel.objects.create(username="seconduser")
+
+    # item can be locked
+    assert item.lockable is True
+
+    count = Item.objects.lock(user1, pk=item.pk)
+    assert count == 1
+
+    # now item can't be locked
+    item = Item.objects.get(name="test item")
+
+    assert item.lockable is False
+    count = Item.objects.lock(user2, pk=item.pk)
+    assert count == 0
+    assert item.locked_by == user1
+
+    # no matter who wants to lock it
+    count = Item.objects.lock(user1, pk=item.pk)
+    assert count == 0
+
+    # no other user can unlock other item
+    count = Item.objects.unlock(user2, pk=item.pk)
+    assert count == 0
+    count = Item.objects.unlock(user1, pk=item.pk)
+    assert count == 1
+
+
+def test_permission_unlock_foreign_item():
+    item = Item.objects.create(name="test item")
+    user = UserModel.objects.create(username="firstuser")
+    super_user = UserModel.objects.create(username="seconduser")
+
+    count = Item.objects.lock(user, pk=item.pk)
+    assert count == 1
+
+    # without permission second user can't unlock item
+    count = Item.objects.unlock(super_user, pk=item.pk)
+    assert count == 0
+
+    # but when a user gets a permission to unlock it
+    perm = Permission.objects.get(codename='unlock_foreign_item')
+    super_user.user_permissions.add(perm)
+
+    # then the user should unlock the item
+    super_user = UserModel.objects.get(username="seconduser")
+    count = Item.objects.unlock(super_user, pk=item.pk)
+    assert count == 1
+
+    item = Item.objects.get(name="test item")
+    assert item.lockable is True

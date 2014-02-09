@@ -3,3 +3,6 @@ Django
 logan
 django-model-utils
 django-mptt
+djangorestframework
+markdown
+django-filter

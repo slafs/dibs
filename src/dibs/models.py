@@ -14,20 +14,20 @@ class ItemQuerySet(QuerySet):
 
     def locked_by_user(self, user):
         '''
-        get items that are locked by a given user
+        Get items that are locked by a given user
         '''
         return self.filter(locked_by=user)
 
     def potentially_lockable(self):
         '''
-        returns a queryset of a potentially lockable objects
-        it checks a ``can_be_locked`` attribute
+        Returns a queryset of a potentially lockable objects.
+        It checks a ``can_be_locked`` attribute
         '''
         return self.filter(Q(can_be_locked=True) | Q(can_be_locked__isnull=True))
 
     def lockable(self):
         '''
-        returns a queryset of lockable objects
+        Returns a queryset of lockable objects
         i.e. potentially lockable objects (see ``potentially_lockable``)
         that aren't locked by anyone else
         '''
@@ -43,6 +43,10 @@ class ItemQuerySet(QuerySet):
 
         returns the number of items that were locked
         '''
+        # TODO: design decision needed. whether to allow lock without this check or not
+        # if not user.has_perm('dibs.lock_item'):
+        #     return 0
+
         qs = self.lockable()
         return qs.filter(pk=pk).update(locked_by=user)
 
@@ -59,8 +63,8 @@ class ItemQuerySet(QuerySet):
         if pk is not None:
             filter_dict.update({'pk': pk})
 
-        # TODO: check if user has permission to unlock items that are not locked by him
-        if True:
+        # TODO: design decision needed. same as in lock method
+        if pk is None or not user.has_perm('dibs.unlock_foreign_item'):
             filter_dict.update({'locked_by': user})
 
         qs = self.filter(**filter_dict)
@@ -69,7 +73,7 @@ class ItemQuerySet(QuerySet):
 
 class Item(TimeStampedModel):
     '''
-    main model for stuff that can be "dibbed" (locked)
+    Main model for stuff that can be "dibbed" (locked)
     '''
     name      = models.CharField(_('name'), max_length=255, db_index=True)
     # parent    = models.ForeignKey('self', verbose_name=_('parent'),
@@ -87,9 +91,25 @@ class Item(TimeStampedModel):
     objects = PassThroughManager.for_queryset_class(ItemQuerySet)()
     tree_manager = TreeManager()
 
+    @property
+    def lockable(self):
+        '''
+        convieniance property indicating whether or not an item can be locked
+
+        :return type: bool
+        '''
+        if self.can_be_locked is None or self.can_be_locked is True:
+            return self.locked_by is None
+        else:
+            return False
+
     class Meta:
         verbose_name = _('item')
         verbose_name_plural = _('items')
+        permissions = (
+            ("lock_item", "Can lock an item"),
+            ("unlock_foreign_item", "Can unlock other users items"),
+        )
 
 # register mptt
 TreeForeignKey(Item, verbose_name=_('parent'), null=True, blank=True,
