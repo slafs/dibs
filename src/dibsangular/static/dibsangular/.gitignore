@@ -1,0 +1,35 @@
+# bootstrap
+lib/bootstrap/fonts/*
+lib/bootstrap/less/*
+lib/bootstrap/test-infra/*
+lib/bootstrap/js/*
+lib/bootstrap/bower.json
+lib/bootstrap/browserstack.json
+lib/bootstrap/Gruntfile.js
+lib/bootstrap/LICENSE
+lib/bootstrap/package.json
+lib/bootstrap/README.md
+lib/bootstrap/.bower.json
+# jquery
+lib/jquery/composer.json
+lib/jquery/jquery-migrate.js
+lib/jquery/README.md
+lib/jquery/jquery-migrate.min.js
+lib/jquery/jquery.min.map
+lib/jquery/.bower.json
+lib/jquery/package.json
+lib/jquery/component.json
+lib/jquery/.gitignore
+lib/jquery/bower.json
+# angular
+lib/angular/.bower.json
+lib/angular/README.md
+lib/angular/angular-csp.css
+lib/angular/angular.min.js.gzip
+lib/angular/angular.min.js.map
+lib/angular/bower.json
+# angular-route
+lib/angular-route/angular-route.min.js.map
+lib/angular-route/README.md
+lib/angular-route/.bower.json
+lib/angular-route/bower.json
