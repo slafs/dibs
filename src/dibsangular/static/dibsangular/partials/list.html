@@ -1,0 +1,13 @@
+<h2>List of items</h2>
+
+<div class="item-list row">
+
+    <div class="item col-md-3" ng-repeat="item in items">
+        <h4 class="name">{{ item.name }}</h4>
+
+        <p class="desc">{{ item.desc }}</p>
+
+        <span class="lockedby">{{ item.locked_by }}</p>
+
+    </div>
+</div>
