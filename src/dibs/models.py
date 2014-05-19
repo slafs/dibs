@@ -34,7 +34,7 @@ class ItemQuerySet(QuerySet):
         qs = self.potentially_lockable()
         return qs.filter(locked_by__isnull=True)
 
-    def lock(self, user, pk=None):
+    def lock(self, pk, user=None):
         '''
         Locks an item by it's primary key (only if it can be locked)
 
@@ -43,14 +43,13 @@ class ItemQuerySet(QuerySet):
 
         returns the number of items that were locked
         '''
-        # TODO: design decision needed. whether to allow lock without this check or not
-        # if not user.has_perm('dibs.lock_item'):
-        #     return 0
+        if user and not user.has_perm('dibs.lock_item'):
+            return 0
 
         qs = self.lockable()
         return qs.filter(pk=pk).update(locked_by=user)
 
-    def unlock(self, user, pk=None):
+    def unlock(self, pk, user=None):
         '''
         Unlocks an item by it's primary key (only if it is locked by the given user)
 
@@ -63,8 +62,7 @@ class ItemQuerySet(QuerySet):
         if pk is not None:
             filter_dict.update({'pk': pk})
 
-        # TODO: design decision needed. same as in lock method
-        if pk is None or not user.has_perm('dibs.unlock_foreign_item'):
+        if pk is None or (user is not None and not user.has_perm('dibs.unlock_foreign_item')):
             filter_dict.update({'locked_by': user})
 
         qs = self.filter(**filter_dict)
@@ -102,6 +100,22 @@ class Item(TimeStampedModel):
             return self.locked_by is None
         else:
             return False
+
+    def lock(self, user=None):
+        '''
+        main method for locking an item
+        '''
+        if self.pk is None:  # object must be in DB
+            return 0
+        return Item.objects.lock(self.pk, user=user)
+
+    def unlock(self, user=None):
+        '''
+        complementary method for unlocking an item
+        '''
+        if self.pk is None:  # object must be in DB
+            return 0
+        return Item.objects.unlock(self.pk, user=user)
 
     class Meta:
         verbose_name = _('item')

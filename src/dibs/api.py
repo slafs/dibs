@@ -38,7 +38,7 @@ class ItemViewSet(viewsets.ModelViewSet):
     @action(permission_classes=[CanLockItemApiPerm])
     def lock(self, request, pk=None):
         item = self.get_object()
-        locked_count = Item.objects.lock(request.user, pk=item.pk)
+        locked_count = item.lock(request.user)
         if locked_count > 0:
             return Response({'status': 'item locked'})
         else:
@@ -47,7 +47,7 @@ class ItemViewSet(viewsets.ModelViewSet):
     @action(permission_classes=[CanLockItemApiPerm])
     def unlock(self, request, pk=None):
         item = self.get_object()
-        unlocked_count = Item.objects.unlock(request.user, pk=item.pk)
+        unlocked_count = item.unlock(request.user)
         if unlocked_count > 0:
             return Response({'status': 'item unlocked'})
         else:
