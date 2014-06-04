@@ -2,12 +2,28 @@
 
 <div class="item-list row">
 
-    <div class="item col-md-3" ng-repeat="item in items">
-        <h4 class="name">{{ item.name }}</h4>
+    <div class="col-md-3" ng-repeat="item in items">
 
-        <p class="desc">{{ item.desc }}</p>
+        <div class="item panel panel-default">
 
-        <span class="lockedby">{{ item.locked_by }}</p>
+            <div class="panel-heading">
+                <h4 class="name panel-title">{{ item.name }}</h4>
+            </div>
+
+            <div class="panel-body">
+                <p class="desc">{{ item.desc }}</p>
+
+                <div ng-if="item.locked_by">
+                    <span class="lockedby">Zablokowane przez {{ item.locked_by.username }}</span>
+                </div>
+
+                <div ng-if="!item.locked_by">
+                    <button ng-if="!item.locked_by" class="btn btn-success" ng-click="lock(item)">Lock</button>
+                </div>
+            </div>
+
+        </div>
 
     </div>
+
 </div>

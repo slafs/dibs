@@ -1,14 +1,24 @@
-'use strict';
 
 /* Controllers */
 
 angular.module('dibsApp.controllers', []).
-  controller('ListCtrl', function($scope) {
-    $scope.items = [
-        {name: "Element1", desc: "Some description", locked_by: null},
-        {name: "Element2", desc: "Some other description", locked_by: 'testuser'},
-    ];
+  controller('ListCtrl', function($scope, $http) {
+    'use strict';
+
+    $http.get('/api/v1/items/').success(function(data) {
+      $scope.items = data;
+    });
+
+    $scope.lock = function (item) {
+        $http.post(item.url + 'lock/').success(function(data) {
+          console.log("post OK", data);
+        });
+        console.log("locking", item);
+        item.locked_by = 'mua';
+    };
+
   })
   .controller('MyCtrl2', [function() {
 
   }]);
+
