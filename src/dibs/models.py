@@ -89,6 +89,9 @@ class Item(TimeStampedModel):
     objects = PassThroughManager.for_queryset_class(ItemQuerySet)()
     tree_manager = TreeManager()
 
+    def __unicode__(self):
+        return self.name
+
     @property
     def lockable(self):
         '''

@@ -27,7 +27,7 @@ class ItemSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Item
-        fields = ('url', 'name', 'parent', 'locked_by', 'desc', 'can_be_locked',
+        fields = ('id', 'url', 'name', 'parent', 'locked_by', 'desc', 'can_be_locked',
                   'children_count', 'created', 'modified',)
 
 
