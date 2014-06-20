@@ -2,7 +2,7 @@
 
 <div class="item-list row">
 
-    <div class="col-md-3" ng-repeat="item in items">
+    <div class="col-md-3" ng-repeat="item in items | orderBy:'name'">
 
         <div class="item panel panel-default">
 
@@ -13,12 +13,13 @@
             <div class="panel-body">
                 <p class="desc">{{ item.desc }}</p>
 
-                <div ng-if="item.locked_by">
-                    <span class="lockedby">Zablokowane przez {{ item.locked_by.username }}</span>
+                <div ng-show="item.locked_by">
+                    <span class="lockedby">Locked by {{ item.locked_by.username }}</span>
+                    <button class="btn btn-danger" ng-click="unlock(item)">Unlock</button>
                 </div>
 
-                <div ng-if="!item.locked_by">
-                    <button ng-if="!item.locked_by" class="btn btn-success" ng-click="lock(item)">Lock</button>
+                <div ng-hide="item.locked_by">
+                    <button class="btn btn-success" ng-click="lock(item)">Lock</button>
                 </div>
             </div>
 
