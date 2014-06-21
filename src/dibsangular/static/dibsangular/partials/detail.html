@@ -1,0 +1,23 @@
+<div class="item panel panel-default">
+
+    <div class="panel-heading">
+        <h4 class="name panel-title">{{ item.name }}</h4>
+    </div>
+
+    <div class="panel-body">
+        <p class="desc">{{ item.desc }}</p>
+
+        <div ng-show="item.locked_by">
+            <span class="lockedby">Locked by {{ item.locked_by.username }}</span>
+            <button class="btn btn-danger" ng-click="unlock(item)">Unlock</button>
+        </div>
+
+        <div ng-hide="item.locked_by">
+            <button class="btn btn-success" ng-click="lock(item)">Lock</button>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <alert ng-repeat="error in item.errors track by $index" type="danger" close="closeAlert($index)">{{ error }}</alert>
+    </div>
+
+</div>
