@@ -1,5 +1,6 @@
 from rest_framework import viewsets, serializers
 from dibs.models import Item
+from dibs.twresource import sse_resource
 from django.contrib.auth import get_user_model
 from rest_framework.decorators import action
 from rest_framework import status
@@ -40,6 +41,7 @@ class ItemViewSet(viewsets.ModelViewSet):
         item = self.get_object()
         locked_count = item.lock(request.user)
         if locked_count > 0:
+            sse_resource.broadcast_message_async(str(item.pk), 'itemChange')
             return Response({'status': 'item locked'})
         else:
             return Response({'status': 'item not locked'}, status=status.HTTP_403_FORBIDDEN)
@@ -49,6 +51,7 @@ class ItemViewSet(viewsets.ModelViewSet):
         item = self.get_object()
         unlocked_count = item.unlock(request.user)
         if unlocked_count > 0:
+            sse_resource.broadcast_message_async(str(item.pk), 'itemChange')
             return Response({'status': 'item unlocked'})
         else:
             return Response({'status': 'item not unlocked'}, status=status.HTTP_403_FORBIDDEN)

@@ -86,6 +86,9 @@ DATABASES = {
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+STATIC_ROOT = '/tmp/static/'
+MEDIA_ROOT = '/tmp/media/'
 
 REST_FRAMEWORK = {
     # Use hyperlinked styles by default.

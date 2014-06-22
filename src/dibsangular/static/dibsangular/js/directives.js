@@ -43,7 +43,7 @@ dibs_directives.directive('dibsItem', function() {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-var ItemController = function($scope, $http, $log) {
+var ItemController = function($scope, $http, $log, sse) {
 
   $scope.item.errors = [];
 
@@ -53,6 +53,12 @@ var ItemController = function($scope, $http, $log) {
       $scope.item = item;
     });
   };
+
+  sse.addEventListener('itemChange', function (e) {
+    if (e.data === $scope.item.id.toString()) {
+        $scope.refresh($scope.item);
+    }
+  });
 
   $scope.lock = function (item) {
     $http.post(item.url + 'lock/').
