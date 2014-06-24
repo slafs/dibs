@@ -1,8 +1,10 @@
 #https://www.djangoproject.com/download/1.7a1/tarball#egg=Django
 Django
-logan
+#logan
 django-model-utils
-django-mptt
+#django-mptt
 djangorestframework
-markdown
-django-filter
+#markdown
+#django-filter
+twisted
+crochet

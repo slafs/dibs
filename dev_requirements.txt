@@ -1,5 +1,5 @@
 -r test_requirements.txt
 wheel
-django-compass2
+#django-compass2
 bpython
 
