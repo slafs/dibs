@@ -5,9 +5,9 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from model_utils.managers import PassThroughManager
 from model_utils.models import TimeStampedModel
-import mptt
-from mptt.fields import TreeForeignKey
-from mptt.managers import TreeManager
+# import mptt
+# from mptt.fields import TreeForeignKey
+# from mptt.managers import TreeManager
 
 
 class ItemQuerySet(QuerySet):
@@ -84,10 +84,10 @@ class Item(TimeStampedModel):
         models.NullBooleanField(_('can be locked'), default=None,
                                 help_text=_('whether or not an item can be set as locked.'))
 
-    #TODO: change this to ItemQuerySet.as_manager in Django 1.7
+    # TODO: change this to ItemQuerySet.as_manager in Django 1.7
     # objects = ItemQuerySet.as_manager()
     objects = PassThroughManager.for_queryset_class(ItemQuerySet)()
-    tree_manager = TreeManager()
+    # tree_manager = TreeManager()
 
     def __unicode__(self):
         return self.name
@@ -127,11 +127,12 @@ class Item(TimeStampedModel):
             ("lock_item", "Can lock an item"),
             ("unlock_foreign_item", "Can unlock other users items"),
         )
+        ordering = ['name']
 
 # register mptt
-TreeForeignKey(Item, verbose_name=_('parent'), null=True, blank=True,
-               related_name='children').contribute_to_class(Item, 'parent')
-mptt.register(Item, order_insertion_by=['name'])
+# TreeForeignKey(Item, verbose_name=_('parent'), null=True, blank=True,
+#                related_name='children').contribute_to_class(Item, 'parent')
+# mptt.register(Item, order_insertion_by=['name'])
 
 
 # def mark_nodes(queryset=None):

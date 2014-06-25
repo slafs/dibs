@@ -1,11 +1,13 @@
-from rest_framework import viewsets, serializers
-from dibs.models import Item
-from dibs.twresource import sse_resource
 from django.contrib.auth import get_user_model
-from rest_framework.decorators import action
+
 from rest_framework import status
+from rest_framework import viewsets, serializers
+from rest_framework.decorators import action
 from rest_framework.permissions import DjangoModelPermissions
 from rest_framework.response import Response
+
+from dibs.models import Item
+from dibs.twresource import sse_resource
 
 
 class CanLockItemApiPerm(DjangoModelPermissions):
@@ -22,14 +24,14 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class ItemSerializer(serializers.HyperlinkedModelSerializer):
 
     locked_by = UserSerializer(read_only=True)
-    children_count = serializers.IntegerField(read_only=True, source='children.count')
+    # children_count = serializers.IntegerField(read_only=True, source='children.count')
     created = serializers.DateTimeField(read_only=True)
     modified = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = Item
-        fields = ('id', 'url', 'name', 'parent', 'locked_by', 'desc', 'can_be_locked',
-                  'children_count', 'created', 'modified',)
+        fields = ('id', 'url', 'name', 'locked_by', 'desc', 'can_be_locked',
+                  'created', 'modified',)
 
 
 class ItemViewSet(viewsets.ModelViewSet):
