@@ -1,9 +1,5 @@
 /* Directives */
 
-var dibs_messages = {
-    'UNLOCK_NOPERM': "You can't unlock this item",
-    'LOCK_NOPERM': "You can't lock this item",
-};
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -29,42 +25,53 @@ dibs_directives.directive('dibsItemList', function() {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-dibs_directives.directive('dibsItem', function() {
+var dibsItemBaseDirective = function() {
 
     return {
       'restrict': 'E',
-      'scope': {
-        'item': '='
-      },
-      'templateUrl': '/static/dibsangular/partials/detail.html',
+      'scope': {'item': '='},
       'controller': ItemController
     };
-  });
+};
+
+dibs_directives.directive('dibsItem', function() {
+  ret_obj = dibsItemBaseDirective();
+  ret_obj.templateUrl = '/static/dibsangular/partials/detail.html';
+  return ret_obj;
+});
 
 ////////////////////////////////////////////////////////////////////////////////
 
-var ItemController = function($scope, $http, $log, sse) {
+var ItemController = function($scope, $http, $log, sse, dibs_messages) {
 
   $scope.item.errors = [];
 
-  $scope.refresh = function(item) {
-    $http.get(item.url).success(function(data){
+  $scope.refresh = function() {
+    $http.get($scope.item.url).success(function(data){
       var item = data;
-      $scope.item = item;
+
+      $scope.item.name = item.name;
+      $scope.item.desc = item.desc;
+      $scope.item.locked_by = item.locked_by;
+      $scope.item.can_be_locked = item.can_be_locked;
+      $scope.item.created = item.created;
+      $scope.item.modified = item.modified;
+
+      $scope.item.errors = [];
     });
   };
 
   sse.addEventListener('itemChange', function (e) {
     if (e.data === $scope.item.id.toString()) {
-        $scope.refresh($scope.item);
+        $scope.refresh();
     }
   });
 
-  $scope.lock = function (item) {
-    $http.post(item.url + 'lock/').
+  $scope.lock = function () {
+    $http.post($scope.item.url + 'lock/').
       success(function(data) {
         $log.debug(data);
-        $scope.refresh(item);
+        $scope.refresh();
       }).
       error(function(data, status, headers, config) {
         $log.error(status);
@@ -75,11 +82,11 @@ var ItemController = function($scope, $http, $log, sse) {
       });
   };
 
-  $scope.unlock = function (item) {
-    $http.post(item.url + 'unlock/').
+  $scope.unlock = function () {
+    $http.post($scope.item.url + 'unlock/').
       success(function(data) {
         $log.debug(data);
-        $scope.refresh(item);
+        $scope.refresh();
       }).
       error(function(data, status, headers, config) {
         $log.error(status);

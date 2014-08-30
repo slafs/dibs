@@ -1,12 +1,19 @@
+<div class="item-search row form-inline">
+    <div class="col-md-3 pull-right form-group">
+        <label class="sr-only" for="id_query_dibs_items">Search</label>
+        <input name="query" id="id_query_dibs_items" ng-model="searchText" placeholder="Search..." />
+    </div>
+</div>
+
 <div class="item-list row">
 
     <div ng-hide="items.length" class="no-items">
         <p>There are no items to show</p>
     </div>
 
-    <div class="col-md-3" ng-repeat="item in items | orderBy:'name'">
+    <div class="col-md-3" ng-repeat="obj in items | filter:searchText | orderBy:'name' track by obj.id ">
 
-        <dibs-item item="item"></dibs-item>
+        <dibs-item item="obj"></dibs-item>
 
     </div>
 
