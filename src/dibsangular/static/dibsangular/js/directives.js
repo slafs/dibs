@@ -49,14 +49,8 @@ var ItemController = function($scope, $http, $log, sse, dibs_messages) {
   $scope.refresh = function() {
     $http.get($scope.item.url).success(function(data){
       var item = data;
-
-      $scope.item.name = item.name;
-      $scope.item.desc = item.desc;
-      $scope.item.locked_by = item.locked_by;
-      $scope.item.can_be_locked = item.can_be_locked;
-      $scope.item.created = item.created;
-      $scope.item.modified = item.modified;
-
+      angular.extend($scope.item, item);
+      $scope.item.is_syncing = false;
       $scope.item.errors = [];
     });
   };
@@ -68,6 +62,7 @@ var ItemController = function($scope, $http, $log, sse, dibs_messages) {
   });
 
   $scope.lock = function () {
+    $scope.item.is_syncing = true;
     $http.post($scope.item.url + 'lock/').
       success(function(data) {
         $log.debug(data);
@@ -76,6 +71,7 @@ var ItemController = function($scope, $http, $log, sse, dibs_messages) {
       error(function(data, status, headers, config) {
         $log.error(status);
         $log.error(data);
+        $scope.item.is_syncing = false;
         if (status === 403) {
           $scope.item.errors.push(dibs_messages.LOCK_NOPERM);
         }
@@ -83,6 +79,7 @@ var ItemController = function($scope, $http, $log, sse, dibs_messages) {
   };
 
   $scope.unlock = function () {
+    $scope.item.is_syncing = true;
     $http.post($scope.item.url + 'unlock/').
       success(function(data) {
         $log.debug(data);
@@ -91,6 +88,7 @@ var ItemController = function($scope, $http, $log, sse, dibs_messages) {
       error(function(data, status, headers, config) {
         $log.error(status);
         $log.error(data);
+        $scope.item.is_syncing = false;
         if (status === 403) {
           $scope.item.errors.push(dibs_messages.UNLOCK_NOPERM);
         }

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python ./manage.py collectstatic --noinput && twistd -ny ./server.py
+python ./manage.py collectstatic -l --noinput && twistd -ny ./server.py

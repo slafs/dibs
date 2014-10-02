@@ -1,8 +1,8 @@
 import crochet
 crochet.setup()
 
-from twisted.web import server, resource, client
-from twisted.internet import defer
+from twisted.web import server, resource  # , client
+# from twisted.internet import defer
 
 
 class Root(resource.Resource):

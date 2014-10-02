@@ -90,6 +90,10 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = '/tmp/static/'
 MEDIA_ROOT = '/tmp/media/'
 
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'index'
+
 REST_FRAMEWORK = {
     # Use hyperlinked styles by default.
     # Only used if the `serializer_class` attribute is not set on a view.

@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from rest_framework import routers
 from dibs.api import ItemViewSet
-from django.views.generic import TemplateView
+# from django.views.generic import TemplateView
 # from django.conf import settings
 # from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -22,7 +22,7 @@ urlpatterns = \
              url(r'^admin/', include(admin.site.urls)),
              url(r'^api/v1/', include(api_router_v1.urls)),
              url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-             url(r'^$', TemplateView.as_view(template_name='dibsangular/app.html'), name='index'),
+             url(r'^app/', include('dibsangular.urls')),
              )
 
 urlpatterns += staticfiles_urlpatterns()

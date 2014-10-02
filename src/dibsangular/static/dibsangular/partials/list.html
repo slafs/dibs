@@ -1,8 +1,14 @@
-<div class="item-search row form-inline">
-    <div class="col-md-3 pull-right form-group">
-        <label class="sr-only" for="id_query_dibs_items">Search</label>
-        <input name="query" id="id_query_dibs_items" ng-model="searchText" placeholder="Search..." />
-    </div>
+<div class="item-search row">
+    <form role="form">
+        <div class="col-md-3 col-md-offset-9 form-group">
+            <div class="input-group">
+                <label class="sr-only" for="id_query_dibs_items">Search</label>
+                <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                <input name="query" id="id_query_dibs_items" class="form-control" ng-model="searchText" placeholder="Search..." />
+            </div>
+
+        </div>
+    </form>
 </div>
 
 <div class="item-list row">

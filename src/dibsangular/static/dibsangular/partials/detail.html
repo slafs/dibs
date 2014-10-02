@@ -8,12 +8,12 @@
         <p class="desc">{{ item.desc }}</p>
 
         <div ng-show="item.locked_by">
-            <button class="btn btn-danger" ng-click="unlock()">Unlock</button>
+            <button class="btn btn-danger" ng-class="{disabled: item.is_syncing}" ng-click="unlock()">Unlock</button>
             <span class="lockedby">Locked by {{ item.locked_by.username }}</span>
         </div>
 
         <div ng-hide="item.locked_by">
-            <button class="btn btn-success" ng-click="lock()">Lock</button>
+            <button class="btn btn-success" ng-class="{disabled: item.is_syncing}" ng-click="lock()">Lock</button>
         </div>
     </div>
     <div class="panel-footer">
