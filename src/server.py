@@ -30,6 +30,8 @@ class ThreadPoolService(service.Service):
 # Environment setup for your Django project files:
 os.environ['DJANGO_SETTINGS_MODULE'] = 'dibs.conf.settings'
 from django.core.handlers.wsgi import WSGIHandler
+import django
+django.setup()
 
 # Twisted Application Framework setup:
 application = service.Application('twisted-django')
