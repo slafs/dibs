@@ -36,15 +36,15 @@ test-all:
 	tox
 
 coverage:
-	python setup.py coverage_html
+	tox -e coverage
 
 docs:
 	rm -f docs/dibs.rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ src/dibs
+	sphinx-apidoc -o docs/ src/dibs src/dibs/migrations
 	$(MAKE) -C docs clean
 	DJANGO_SETTINGS_MODULE=dibs.conf.settings $(MAKE) -C docs html
-	open docs/_build/html/index.html
+	#open docs/_build/html/index.html
 
 release: clean
 	python setup.py sdist bdist_wheel upload

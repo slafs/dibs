@@ -29,6 +29,8 @@ project_root = os.path.dirname(cwd)
 sys.path.insert(0, project_root)
 
 # import dibs
+import django
+django.setup()
 
 # -- General configuration -----------------------------------------------------
 

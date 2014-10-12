@@ -7,7 +7,6 @@ Subpackages
 .. toctree::
 
     dibs.conf
-    dibs.migrations
 
 Submodules
 ----------
@@ -32,6 +31,14 @@ dibs.models module
 ------------------
 
 .. automodule:: dibs.models
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dibs.twresource module
+----------------------
+
+.. automodule:: dibs.twresource
     :members:
     :undoc-members:
     :show-inheritance:
