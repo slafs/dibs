@@ -125,3 +125,23 @@ def test_permission_unlock_foreign_item():
 
     item = Item.objects.get(name='test item')
     assert item.lockable is True
+
+
+def test_no_pk_lock():
+    item = Item()
+    item.name = 'test item'
+
+    ret = item.lock()
+    assert ret == 0
+
+    ret2 = item.unlock()
+    assert ret2 == 0
+
+
+def test_no_perm():
+    '''check that a user without perms can't lock an item'''
+    item = Item.objects.create(name='test item')
+    user = UserModel.objects.create(username='nopermuser', password='password')
+
+    ret = Item.objects.lock(item.pk, user=user)
+    assert ret == 0
