@@ -2,10 +2,9 @@
 omit=src/dibs/migrations/*,src/dibs/twresource.py,src/dibs/wsgi.py
 
 [report]
-# Regexes for lines to exclude from consideration
 exclude_lines =
-    # Have to re-enable the standard pragma
     pragma: no cover
-
-    # Don't complain about following missing code:
+    def __repr__
     def __unicode__
+    raise NotImplementedError
+    if __name__ == .__main__.:
