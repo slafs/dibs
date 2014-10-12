@@ -63,7 +63,7 @@ copyright = u'2014, Slawek Ehlert'
 #
 # The short X.Y version.
 # version = dibs.__version__
-version = '0.1.0-dev'
+version = '0.1.1-dev'
 # The full version, including alpha/beta/rc tags.
 # release = dibs.__version__
 release = version
