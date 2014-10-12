@@ -30,7 +30,7 @@ TEMPLATE_DEBUG = True
 # Application definition
 
 INSTALLED_APPS = (
-    #'django.contrib.admin.apps.AdminConfig',
+    # 'django.contrib.admin.apps.AdminConfig',
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.auth',
