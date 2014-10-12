@@ -1,3 +1,5 @@
+# encoding: utf-8
+from __future__ import print_function, absolute_import, division, unicode_literals
 import crochet
 crochet.setup()
 
@@ -34,12 +36,10 @@ class SSEResource(resource.Resource):
         self._listeners = []
 
     def add_listener(self, request):
-        print "listener connected", request
         self._listeners.append(request)
         request.notifyFinish().addBoth(self.remove_listener, request)
 
     def remove_listener(self, reason, listener):
-        print "listener disconnected", listener, "reason", reason
         self._listeners.remove(listener)
 
     @crochet.run_in_reactor
@@ -47,7 +47,6 @@ class SSEResource(resource.Resource):
         self.broadcast_message_async(msg, event)
 
     def broadcast_message_async(self, msg, event=None):
-        print 'broadcasting'
         sse = _format_sse(msg, event)
         for listener in self._listeners:
             listener.write(sse)
