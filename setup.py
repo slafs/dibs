@@ -35,7 +35,7 @@ class PyTest(TestCommand):
 
 setup(
     name='dibs',
-    version='0.1.0',
+    version='0.1.0-dev',
     description='make "dibs" on stuff',
     long_description=readme + '\n\n' + history,
     author='Slawek Ehlert',

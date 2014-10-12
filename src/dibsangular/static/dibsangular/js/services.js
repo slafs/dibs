@@ -1,5 +1,5 @@
 /* Services */
-var dibs_version = '0.1.0';
+var dibs_version = '0.1.0-dev';
 
 var dibs_messages = {
     'UNLOCK_NOPERM': "You can't unlock this item",
