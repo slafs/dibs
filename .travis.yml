@@ -1,6 +1,10 @@
 language: python
 env:
+    - TOXENV=py27
+    - TOXENV=py34
+    - TOXENV=lint
+    - TOXENV=coverage_travis
 install:
   - pip install tox
 script:
-  - tox -e py26,py27,py32,lint,coverage_travis
+  - tox
