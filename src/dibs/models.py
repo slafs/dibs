@@ -84,7 +84,7 @@ class Item(TimeStampedModel):
 
     can_be_locked = \
         models.NullBooleanField(_('can be locked'), default=None,
-                                help_text=_('whether or not an item can be set as locked.'))
+                                help_text=_('can this item be set as locked?'))
 
     objects = ItemQuerySet.as_manager()
     # tree_manager = TreeManager()
