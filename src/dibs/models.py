@@ -1,9 +1,10 @@
+# encoding: utf-8
+from __future__ import print_function, absolute_import, division, unicode_literals
 from django.db import models
 from django.db.models import Q
 from django.db.models.query import QuerySet
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from model_utils.managers import PassThroughManager
 from model_utils.models import TimeStampedModel
 # import mptt
 # from mptt.fields import TreeForeignKey
@@ -77,16 +78,15 @@ class Item(TimeStampedModel):
     parent    = models.ForeignKey('self', verbose_name=_('parent'),
                                   null=True, blank=True, related_name='children')
     locked_by = models.ForeignKey(settings.AUTH_USER_MODEL,
-                                  verbose_name=_('locked by'), null=True, blank=True)
+                                  verbose_name=_('locked by'), null=True, blank=True,
+                                  related_name='locked_items')
     desc      = models.TextField(_('description'), null=True, blank=True)
 
     can_be_locked = \
         models.NullBooleanField(_('can be locked'), default=None,
                                 help_text=_('whether or not an item can be set as locked.'))
 
-    # TODO: change this to ItemQuerySet.as_manager in Django 1.7
-    # objects = ItemQuerySet.as_manager()
-    objects = PassThroughManager.for_queryset_class(ItemQuerySet)()
+    objects = ItemQuerySet.as_manager()
     # tree_manager = TreeManager()
 
     def __unicode__(self):
