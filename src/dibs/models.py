@@ -74,8 +74,8 @@ class Item(TimeStampedModel):
     Main model for stuff that can be "dibbed" (locked)
     '''
     name      = models.CharField(_('name'), max_length=255, db_index=True)
-    # parent    = models.ForeignKey('self', verbose_name=_('parent'),
-    #                               null=True, blank=True, related_name='children')
+    parent    = models.ForeignKey('self', verbose_name=_('parent'),
+                                  null=True, blank=True, related_name='children')
     locked_by = models.ForeignKey(settings.AUTH_USER_MODEL,
                                   verbose_name=_('locked by'), null=True, blank=True)
     desc      = models.TextField(_('description'), null=True, blank=True)
