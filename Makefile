@@ -47,7 +47,9 @@ docs:
 	#open docs/_build/html/index.html
 
 release: clean
+	bumpversion --list release
 	python setup.py sdist bdist_wheel upload
+	bumpversion --list patch
 
 sdist: clean
 	python setup.py sdist
