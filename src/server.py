@@ -1,4 +1,6 @@
-import sys
+# encoding: utf-8
+# from __future__ import print_function, absolute_import, division, unicode_literals
+
 import os
 import crochet
 crochet.no_setup()
