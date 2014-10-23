@@ -30,13 +30,18 @@ class ThreadPoolService(service.Service):
         self.pool.stop()
 
 # Environment setup for your Django project files:
-os.environ['DJANGO_SETTINGS_MODULE'] = 'dibs.conf.settings'
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dibs.conf')
+os.environ.setdefault('DJANGO_CONFIGURATION', 'Dev')
+
+from configurations import importer
+importer.install()
+
 from django.core.handlers.wsgi import WSGIHandler
 import django
 django.setup()
 
 # Twisted Application Framework setup:
-application = service.Application('twisted-django')
+application = service.Application('twisted-django-dibs')
 
 
 # WSGI container for Django, combine it with twisted.web.Resource:
