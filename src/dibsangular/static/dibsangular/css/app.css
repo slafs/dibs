@@ -29,3 +29,12 @@
   padding: 0;
 }
 
+.panel-title {
+  /*word-wrap: break-word;*/
+  /*width: 250px;*/
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1em;
+  line-height: 1.4;
+}
