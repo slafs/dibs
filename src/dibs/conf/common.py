@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
-from configurations import Configuration, values
+from configurations import Configuration  # , values
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
