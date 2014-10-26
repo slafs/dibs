@@ -14,7 +14,8 @@
 <div class="item-list row">
 
     <div ng-hide="items.length" class="no-items">
-        <p>There are no items to show</p>
+        <p ng-show="items_loading">Loading...</p>
+        <p ng-hide="items_loading">There are no items to show</p>
     </div>
 
     <div class="col-md-3" ng-repeat="obj in items | filter:searchText | orderBy:'name' track by obj.id ">

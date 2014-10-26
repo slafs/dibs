@@ -15,9 +15,10 @@ dibs_directives.directive('dibsItemList', function() {
     },
     'templateUrl': '/static/dibsangular/partials/list.html',
     'controller': function($scope, $http, $log) {
-
+      $scope.items_loading = true;
       $http.get('/api/v1/items/').success(function(data) {
         $scope.items = data;
+        $scope.items_loading = false;
       });
     }
   };
