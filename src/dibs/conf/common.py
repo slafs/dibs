@@ -40,7 +40,8 @@ class Common(Configuration):
         'django.contrib.staticfiles',
         'rest_framework',
         'dibs',
-        'dibsangular',
+        #'dibsangular',
+        'dibsreact',
     )
 
     MIDDLEWARE_CLASSES = (

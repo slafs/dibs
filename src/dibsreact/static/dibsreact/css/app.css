@@ -1,0 +1,10 @@
+/* app css stylesheet */
+
+.panel-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1em;
+  line-height: 1.4;
+}
+
