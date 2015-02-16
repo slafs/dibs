@@ -22,7 +22,7 @@ urlpatterns = \
              url(r'^admin/', include(admin.site.urls)),
              url(r'^api/v1/', include(api_router_v1.urls)),
              url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-             #url(r'^app/', include('dibsangular.urls')),
+             # url(r'^app/', include('dibsangular.urls')),
              url(r'^app/', include('dibsreact.urls')),
              )
 

@@ -3,7 +3,7 @@
 import crochet
 crochet.setup()
 
-from twisted.web import server, resource  # , client
+from twisted.web import server, resource  # noqa
 # from twisted.internet import defer
 
 
